@@ -5,8 +5,12 @@ import time
 import socket
 import paramiko
 import gateway
+import filecmp
 from scp import SCPClient
 from getpass import getpass
+
+GREEN = "\033[92m"
+RESET = "\033[0m"
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Data')
 
@@ -39,16 +43,19 @@ def backup(client, partitions):
         scp = SCPClient(client.get_transport())
         scp.get(f'/tmp/{filename}', os.path.join(DATA_DIR, filename))
         if filename == 'OpenWrt.mtd2.bin':
-            new_filename = get_hex_offset(os.path.join(DATA_DIR, filename), 0x7EF20, 6).upper() + '.bin'
-            shutil.move(os.path.join(DATA_DIR, filename), os.path.join(DATA_DIR, new_filename))
+            new_filename = 'EEPROM_'+ get_hex_offset(os.path.join(DATA_DIR, filename), 0x7EF20, 6).upper() + '.bin'
+            shutil.copy(os.path.join(DATA_DIR, filename), os.path.join(DATA_DIR, new_filename))
+            if filecmp.cmp(os.path.join(DATA_DIR, filename), os.path.join(DATA_DIR, new_filename)):
+                os.remove(os.path.join(DATA_DIR, filename))
             filename = new_filename
         if os.path.exists(os.path.join(DATA_DIR, filename)):
             if filename == 'u-boot_stock.bin':
-                print(f'Стоковый загрузчик {filename} успешно сохранен в папку Data')
+                print(f'Стоковый загрузчик {filename} успешно сохранен в папку Data, отправьте его в Telegram @spatiumstas/@yeezio для установки KeeneticOS')
             else:
-                print(f'EEPROM {filename} успешно сохранен в папку Data, отправьте его в Telegram @spatiumstas/@yeezio для установки KeeneticOS')
+                print(f'{filename} успешно сохранен в папку Data')
         else:
             print(f'Ошибка при сохранении {filename}')
+
 
 def write_loader(client):
     stdin, stdout, stderr = client.exec_command('insmod mtd-rw i_want_a_brick=1')
@@ -59,9 +66,9 @@ def write_loader(client):
     data = stdout.read() + stderr.read()
 
 def main():
-    print ("+--------------------------------------------------------------+")
-    print ("|                 Breed installer for Netis N6                 |")
-    print ("+--------------------------------------------------------------+")
+    print (f"{GREEN}+--------------------------------------------------------------+")
+    print ("|          Breed installer for Netis N6 by shallador           |")
+    print (f"+--------------------------------------------------------------+{RESET}")
 
     router_ip = gateway.get_ip_address()
     username = 'root'
@@ -77,11 +84,11 @@ def main():
             backup(client, partitions)
             write_loader(client)
             print ("")
-            print ("+--------------------------------------------------------------+")
-            print ("|              Загрузчик Breed успешно установлен              |")
-            print ("+--------------------------------------------------------------+")
+            print(f"{GREEN}+--------------------------------------------------------------+")
+            print("|              Загрузчик Breed успешно установлен              |")
+            print(f"+--------------------------------------------------------------+{RESET}")
             print ("")
-            print ('Роутер перезагружается в Breed...')
+            print ('Перезагрузка в Breed...')
             client.exec_command('reboot')
             time.sleep(2)
             client.close()
