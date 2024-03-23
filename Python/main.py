@@ -50,7 +50,7 @@ def backup(client, partitions):
             filename = new_filename
         if os.path.exists(os.path.join(DATA_DIR, filename)):
             if filename == 'u-boot_stock.bin':
-                print(f'Стоковый загрузчик {filename} успешно сохранен в папку Data, отправьте его в Telegram @spatiumstas/@yeezio для установки KeeneticOS')
+                print(f'Стоковый загрузчик {filename} успешно сохранен в папку Data')
             else:
                 print(f'{filename} успешно сохранен в папку Data')
         else:
