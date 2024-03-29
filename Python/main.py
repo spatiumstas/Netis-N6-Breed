@@ -52,7 +52,7 @@ def backup(client, partitions):
             if filename == 'u-boot_stock.bin':
                 print(f'Стоковый загрузчик {filename} успешно сохранен в папку Data')
             else:
-                print(f'{filename} успешно сохранен в папку Data')
+                print(f'{filename} успешно сохранен в папку Data, отправьте его в Telegram @spatiumstas/@yeezio для установки KeeneticOS')
         else:
             print(f'Ошибка при сохранении {filename}')
 
