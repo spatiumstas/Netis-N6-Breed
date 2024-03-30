@@ -1,6 +1,7 @@
 # Установка Breed
 https://telegra.ph/KeeneticOS-407-na-Netis-N6-02-28
 
+[Скачать архив](https://github.com/spatiumstas/Netis-N6-Breed/archive/refs/heads/main.zip)
 1. Ставим LEDE из папки Firmware поверх стока простым обновлением 
 2. После перезагрузки обновляем поверх до OpenWRT из той же папки. Первый запуск займёт до 5 минут
 ![image](https://github.com/spatiumstas/Netis-N6-Breed/assets/79056064/0f407c46-addb-4d1b-9c17-7b8a0b24bda7)
