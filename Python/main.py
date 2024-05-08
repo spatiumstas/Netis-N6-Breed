@@ -67,7 +67,7 @@ def write_loader(client):
 
 def main():
     print ("+--------------------------------------------------------------+")
-    print ("|          Breed installer for Netis N6 by shallador           |")
+    print ("|          Breed installer for Netis N6 by spatiumstas         |")
     print ("+--------------------------------------------------------------+")
 
     router_ip = gateway.get_ip_address()
