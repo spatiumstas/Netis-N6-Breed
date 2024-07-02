@@ -33,6 +33,7 @@ https://telegra.ph/KeeneticOS-407-na-Netis-N6-02-28
 **- flash write 0x80000 0x80001000 0x7f80000**
 
 8. Через интерфейс Breed обновляем загрузчик на стоковый STOCK_u-boot.bin из папки Firmware
+
 Upgrade -> Bootloader -> Upload
 
 После перезагрузки загрузится OpenWRT
