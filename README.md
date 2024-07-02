@@ -27,7 +27,7 @@ https://telegra.ph/KeeneticOS-407-na-Netis-N6-02-28
 7. В Putty вводим команды на стирание и запись нашего бекапа
 
 **flash erase 0x80000 0x7f00000**
-
+**wget на файл в HFS**
 **flash write 0x80000 0x80001000 0x7f80000**
 
 8. Через интерфейс Breed обновляем загрузчик на стоковый STOCK_u-boot.bin из папки Firmware
